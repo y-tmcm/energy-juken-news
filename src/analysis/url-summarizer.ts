@@ -40,7 +40,7 @@ function prioritizeUrls(
     .slice(0, maxUrls);
 }
 
-
+export async function summarizeUrls(
   tweets: RawTweet[],
   urlContents: Map<string, string>,
   config: Config,
