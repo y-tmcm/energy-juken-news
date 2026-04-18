@@ -16,7 +16,7 @@ export async function summarizeUrls(
     return tweets.map((t) => ({ ...t, enrichedText: buildFullText(t) }));
   }
 
-  console.info("[3a/4] 各URLを Gemini Flash で要約中...");
+  console.info(`[3a/4] 各URLを ${settings.analysis.urlSummaryModel} で要約中...`);
   const ai = new GoogleGenAI({ apiKey: config.GEMINI_API_KEY });
   const summaryCache = new Map<string, string>();
   const entries = [...urlContents.entries()];
@@ -49,6 +49,8 @@ export async function summarizeUrls(
     for (const r of results) {
       if (r.status === "fulfilled" && r.value.summary) {
         summaryCache.set(r.value.url, r.value.summary);
+      } else if (r.status === "rejected") {
+        console.warn(`→ URL要約失敗: ${String(r.reason)}`);
       }
     }
   }
