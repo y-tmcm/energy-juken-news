@@ -8,9 +8,9 @@ const TopicSchema = z.object({
 });
 
 export const AnalysisSchema = z.object({
-  main_news: z.array(TopicSchema),
-  updates: z.array(TopicSchema),
-  tech_trends: z.array(TopicSchema),
+  main_news: z.array(TopicSchema).min(3),
+  updates: z.array(TopicSchema).min(3),
+  tech_trends: z.array(TopicSchema).min(3),
 });
 
 export type Analysis = z.infer<typeof AnalysisSchema>;
