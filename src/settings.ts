@@ -25,12 +25,12 @@ export const settings: Settings = {
   urlContent: {
     enabled: true,
     timeoutMs: 10_000,
-    parallelism: 3,
+    parallelism: 1,
     maxSummaryChars: 200,
     inputCharsMultiplier: 20,
   },
   analysis: {
-    urlSummaryModel: "gemma-3-2b-it",
+    urlSummaryModel: "gemma-3-27b-it",
     trendAnalysisModel: "gemini-2.5-flash",
     temperature: 0,
   },
