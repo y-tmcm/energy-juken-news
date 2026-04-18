@@ -27,10 +27,10 @@ export const settings: Settings = {
     timeoutMs: 10_000,
     parallelism: 1,
     maxSummaryChars: 200,
-    inputCharsMultiplier: 20,
+    inputCharsMultiplier: 5,
   },
   analysis: {
-    urlSummaryModel: "gemma-3-27b-it",
+    urlSummaryModel: "gemma-3-4b-it",
     trendAnalysisModel: "gemini-2.5-flash",
     temperature: 0,
   },

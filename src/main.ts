@@ -14,12 +14,29 @@ import { analyzeTrends } from "./analysis/analyze.js";
 import { postToSlack } from "./delivery/slack.js";
 import { UserFacingError } from "./utils/errors.js";
 
+const THEME_KEYWORDS = [
+  "再エネ", "再生可能エネルギー", "太陽光", "風力", "洋上風力", "水素",
+  "FIT", "FIP", "電力市場", "カーボンニュートラル", "脱炭素",
+  "BESS", "蓄電池", "系統用蓄電池", "容量市場", "バッテリー",
+  "中学受験", "受験", "偏差値", "塾", "開成", "麻布", "灘", "桜蔭",
+  "サピックス", "日能研", "四谷大塚",
+];
+
+function isThemeRelated(text: string): boolean {
+  const lower = text.toLowerCase();
+  return THEME_KEYWORDS.some((kw) => lower.includes(kw.toLowerCase()));
+}
+
 async function main() {
   const config = loadConfig();
 
   console.info("[1/4] X のホームタイムラインを取得中...");
-  const tweets = await fetchHomeTimeline(config, settings);
-  console.info(`→ ツイート ${tweets.length}件 を取得`);
+  const allTweets = await fetchHomeTimeline(config, settings);
+  console.info(`→ ツイート ${allTweets.length}件 を取得`);
+  const tweets = allTweets.filter((t) =>
+    isThemeRelated(t.text + (t.quotedText ?? "")),
+  );
+  console.info(`→ テーマ関連ツイート: ${tweets.length}件（全体の${Math.round((tweets.length / allTweets.length) * 100)}%）`);
 
   console.info("[2/4] URL本文を Jina Reader で取得中...");
   const urlContents = await fetchUrlContents(tweets, config, settings);
