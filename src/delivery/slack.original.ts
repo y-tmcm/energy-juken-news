@@ -12,7 +12,7 @@ export async function postToSlack(
 
   const res = await client.chat.postMessage({
     channel: config.SLACK_CHANNEL,
-    text: "48時間以内の再エネ・BESS・中学受験トレンド",
+    text: "24時間以内のAIトレンド",
     blocks,
   });
 
@@ -36,14 +36,14 @@ function buildBlocks(analysis: Analysis): KnownBlock[] {
 
   blocks.push({
     type: "header",
-    text: { type: "plain_text", text: "📡 48時間以内の再エネ・BESS・中学受験トレンド", emoji: true },
+    text: { type: "plain_text", text: "🤖 24時間以内のAIトレンド", emoji: true },
   });
   blocks.push({ type: "divider" });
 
   const sections: Array<{ title: string; items: Analysis["main_news"] }> = [
     { title: "🔥 主要なニュース・話題", items: analysis.main_news },
-    { title: "⚡️ 政策・制度・入試アップデート", items: analysis.updates },
-    { title: "💡 技術・市場・受験トレンド", items: analysis.tech_trends },
+    { title: "⚡️ 注目のアップデート", items: analysis.updates },
+    { title: "💡 技術トレンド", items: analysis.tech_trends },
   ];
 
   for (const section of sections) {

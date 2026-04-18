@@ -1,4 +1,4 @@
-name: Bi-Daily Energy & JukenNews
+name: Daily AI News
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
         type: boolean
         default: false
   schedule:
-    - cron: '30 22 */2 * *'  # 2日に1回 07:30 JST
+    - cron: '30 22 * * *'  # 毎日 07:30 JST
 
 permissions:
   contents: read
@@ -51,7 +51,7 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{
               "channel": "'"${SLACK_CHANNEL}"'",
-              "text": ":x: *再エネ・BESS・中学受験ニュース エラー発生*\nワークフロー実行: <'"${FAILED_RUN_URL}"'|詳細を確認>"
+              "text": ":x: *AIニュース エラー発生*\nワークフロー実行: <'"${FAILED_RUN_URL}"'|詳細を確認>"
             }'
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
