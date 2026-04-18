@@ -23,9 +23,9 @@ export const settings: Settings = {
     maxTweets: 100,
   },
   urlContent: {
-    enabled: true,
+    enabled: false,
     timeoutMs: 10_000,
-    parallelism: 10,
+    parallelism: 3,
     maxSummaryChars: 200,
     inputCharsMultiplier: 20,
   },
