@@ -23,14 +23,14 @@ export const settings: Settings = {
     maxTweets: 100,
   },
   urlContent: {
-    enabled: false,
+    enabled: true,
     timeoutMs: 10_000,
     parallelism: 3,
     maxSummaryChars: 200,
     inputCharsMultiplier: 20,
   },
   analysis: {
-    urlSummaryModel: "gemini-2.5-flash",
+    urlSummaryModel: "gemma-3-2b-it",
     trendAnalysisModel: "gemini-2.5-flash",
     temperature: 0,
   },
