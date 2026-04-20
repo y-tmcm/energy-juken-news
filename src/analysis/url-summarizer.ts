@@ -5,6 +5,7 @@ import type { RawTweet, EnrichedTweet } from "../types.js";
 import { extractUrls } from "../utils/post-optimizer.js";
 import { chunkArray } from "../utils/chunk.js";
 import { URL_SUMMARY_PROMPT } from "./prompts.js";
+import { withRetry } from "../utils/retry.js";
 
 const THEME_KEYWORDS = [
   // 再エネ
@@ -80,11 +81,15 @@ export async function summarizeUrls(
           truncated,
         );
 
-        const res = await ai.models.generateContent({
-          model: settings.analysis.urlSummaryModel,
-          contents: prompt,
-          config: { temperature: 0 },
-        });
+        const res = await withRetry(
+          () =>
+            ai.models.generateContent({
+              model: settings.analysis.urlSummaryModel,
+              contents: prompt,
+              config: { temperature: 0 },
+            }),
+          { label: `summarizeUrl(${url})` },
+        );
 
         const text = res.text?.slice(0, settings.urlContent.maxSummaryChars);
         return { url, summary: text ?? "" };
