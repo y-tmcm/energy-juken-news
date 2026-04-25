@@ -1,4 +1,4 @@
-name: Bi-Daily Energy & JukenNews
+name: Daily Energy & JukenNews
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
         type: boolean
         default: false
   schedule:
-    - cron: '30 22 */2 * *'  # 2日に1回 07:30 JST
+    - cron: '30 22 * * *'  # 毎日 07:30 JST
 
 permissions:
   contents: read
